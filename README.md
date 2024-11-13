@@ -85,7 +85,9 @@ No, **el resultado no es el mismo** debido a la forma en que se aplican las tran
 Las transformaciones en Unity, cuando se aplican en el orden de rotación y luego traslación, modifican el sistema de coordenadas local de la cámara. En el primer caso, la traslación ocurre en el sistema global antes de la rotación, mientras que en el segundo caso, la traslación se aplica en el sistema de coordenadas ya rotado.
 
 Este comportamiento está alineado con las reglas de transformaciones en gráficos 3D, donde el orden de las transformaciones afecta el resultado final debido a que son operaciones no conmutativas.
-
+| Rotación y traslación          | Traslación y rotación                   |
+|--------------------------------------------------|------------------------------------------------|
+| ![Modificación del Field of View](./image/ej2_camara_rotacion_traslacion.png)          | ![Configuración del Clip Plane](./image/ej2_camara_traslacion_rotacion.png)          |
 ## Pregunta 3 <div id='3'/>
 
 **3\. Sitúa la esfera de radio 1 en el campo de visión de la cámara y configura un volumen de vista que la recorte parcialmente.**
