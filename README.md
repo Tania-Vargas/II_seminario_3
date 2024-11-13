@@ -164,6 +164,13 @@ Para verificar los cambios en Unity:
 - Activa **Gizmos** en la vista de la cámara para observar los límites del frustum.  
 - Asegúrate de ajustar los valores poco a poco hasta lograr que la esfera esté completamente fuera de los límites del volumen de vista.
 
+| Modificación del Cliping Plane Far               | Configuración del Cliping Plane Near                   |
+|--------------------------------------------------|------------------------------------------------|
+| ![Modificación del Field of View](./image/ej4_cliping_plane_far.png)          | ![Configuración del Clip Plane](./image/ej4_cliping_plane_near.png)          |
+
+| Movimiento del FOV                | Reducción del FOV                   |
+|--------------------------------------------------|------------------------------------------------|
+| ![Modificación del Field of View](./image/ej4_fov_moved.gif)          | ![Configuración del Clip Plane](./image/ej4_FOV_reduce.png)          |
 ## Pregunta 5 <div id='5'/>
 
 **5\. Cómo puedes aumentar el ángulo de la cámara. Qué efecto tiene disminuir el ángulo de la cámara**
