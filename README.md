@@ -83,9 +83,79 @@ Para verificar los cambios en Unity:
 - Asegúrate de ajustar los valores poco a poco hasta lograr que la esfera esté completamente fuera de los límites del volumen de vista.
 **[AÑADIR IMAGENES]**
 ## Pregunta 5. Cómo puedes aumentar el ángulo de la cámara. Qué efecto tiene disminuir el ángulo de la cámara
+Para modificar el ángulo de apertura de la cámara en Unity, puedes ajustar el **campo de visión vertical** o **Field of View (FOV)** de la cámara. Esto se puede hacer directamente en el componente `Camera` del inspector o mediante código en un script, modificando la propiedad `Camera.fieldOfView`.
+```C++
+Camera.main.fieldOfView = 60f; // Ejemplo: ajustar el FOV a 60 grados
+```
+### Efectos de manipular en ángulo de la cámara
+1. **Aumentar el ángulo de la cámara (FOV)**:
+   - Cuando aumentas el campo de visión, la cámara captura un área más amplia de la escena. Esto hace que los objetos se vean más pequeños, ya que abarcan una mayor porción del entorno en la misma vista.
+   - Aumentar el FOV es útil para panorámicas o para simular una lente gran angular, pero puede causar distorsión en los bordes de la imagen, lo que se percibe como un efecto de "ojo de pez".
+2. **Disminuir el ángulo de la cámara (FOV)**:
+    - Reducir el FOV estrecha el área visible, acercando la vista y haciendo que los objetos se vean más grandes y más cercanos, como si estuvieran más cerca de la cámara.
+    - Este efecto es ideal para enfoques detallados de objetos o cuando se busca destacar un área específica sin incluir distracciones del entorno, similar a una lente teleobjetivo. Sin embargo, puede dar una sensación de menor profundidad, ya que reduce la perspectiva.
 ## Pregunta 6. Es correcta la siguiente afirmación: Para realizar la proyección al espacio 2D, en el inspector de la cámara, cambiaremos el valor de projection, asignándole el valor de orthographic
+La afirmación es **correcta**. En Unity, al cambiar el modo de proyección de la cámara a **Orthographic** desde el inspector, efectivamente se configura para realizar una proyección **ortogonal**. En este tipo de proyección, los objetos mantienen sus proporciones independientemente de su distancia a la cámara, lo que significa que no se aplica la perspectiva, y los objetos se ven en su tamaño real sin distorsión de profundidad.
+
+En contraste, la configuración de **Perspective** permite que los objetos cercanos a la cámara se vean más grandes y los objetos lejanos se vean más pequeños, lo que simula la percepción real de profundidad en el espacio 3D, ideal para videojuegos y simulaciones realistas.
 ## Pregunta 7. Especifica las rotaciones que se han indicado en los ejercicios previos con la utilidad quaternion
+En Unity, las rotaciones con la utilidad **Quaternion** permiten manejar rotaciones de manera más efectiva, especialmente para evitar problemas como el "gimbal lock" que puede ocurrir con rotaciones en ángulos de Euler. Basándonos en los ejercicios previos, aquí tienes cómo expresar esas rotaciones utilizando `Quaternion`.
+### Ejemplo 1: Rotación de 30° alrededor del eje Y
+En un ejercicio previo, se indicó una rotación de **30° alrededor del eje Y**. Para realizar esta rotación con `Quaternion`, utilizamos:
+```C++
+transform.rotation = Quaternion.Euler(0f, 30f, 0f);
+```
+Esto crea un `Quaternion` a partir de ángulos de Euler, donde:
+- **0f** es la rotación en el eje X,
+- **30f** es la rotación en el eje Y,
+- **0f** es la rotación en el eje Z.
+### Ejemplo 2: Concatenar rotación y traslación
+En otro ejercicio, se pidió rotar un objeto **30° alrededor del eje Y** y luego aplicarle una traslación. Con `Quaternion`, podemos componer rotaciones de esta forma para agregar más de una rotación, si fuera necesario, y mantener la misma precisión:
+1. Primero, definimos la rotación en Quaternion.
+```C++
+Quaternion rotation = Quaternion.Euler(0f, 30f, 0f);
+```
+2. Luego, aplicamos esta rotación al objeto antes o después de la traslación, según lo especificado en el ejercicio.
+```C++
+transform.rotation = rotation;
+transform.Translate(2f, 2f, 2f);
+```
+### Ejemplo de rotación compuesta
+Si tuvieras que aplicar varias rotaciones en secuencia, por ejemplo, **30°** en **Y** y luego **45°** en **Z**, puedes combinarlas con la multiplicación de `Quaternion`:
+```C++
+Quaternion rotationY = Quaternion.Euler(0f, 30f, 0f);
+Quaternion rotationZ = Quaternion.Euler(0f, 0f, 45f);
+transform.rotation = rotationY * rotationZ;
+```
+En este caso:
+- `rotationY` rota el objeto 30° alrededor del eje Y.
+- `rotationZ` rota el objeto 45° alrededor del eje Z.
+- La multiplicación `rotationY * rotationZ` aplica primero `rotationY` y luego `rotationZ`.
 ## Pregunta 8. ¿Cómo puedes averiguar la matriz de proyección en perspectiva que se ha usado para proyectar la escena al último frame renderizado?
+Para averiguar la **matriz de proyección en perspectiva** utilizada para proyectar la escena en el último frame renderizado en Unity, puedes acceder a esta información a través de la cámara de la escena. En Unity, cada cámara tiene una matriz de proyección que determina cómo se proyectan los objetos 3D en la pantalla 2D. Aquí te explico cómo obtener esta matriz:
+### Paso 1: Acceder a la cámara y obtener su matriz de proyección
+Unity proporciona acceso a la **matriz de proyección** de la cámara mediante la propiedad `Camera.projectionMatrix`. Puedes obtener esta matriz en tiempo de ejecución para verificar los valores que se están utilizando en el último frame renderizado.
+### Ejemplo de código en C#
+El siguiente código te muestra cómo acceder y mostrar la matriz de proyección en perspectiva de la cámara principal:
+```C++
+void Start()
+{
+    // Acceder a la cámara principal
+    Camera mainCamera = Camera.main;
+
+    // Obtener la matriz de proyección en perspectiva
+    Matrix4x4 projectionMatrix = mainCamera.projectionMatrix;
+
+    // Mostrar la matriz en la consola
+    Debug.Log("Matriz de proyección de la cámara:\n" + projectionMatrix);
+}
+```
+### Detalles sobre la matriz de proyección en perspectiva
+Esta matriz de proyección (Matrix4x4) es una matriz de 4x4 que Unity utiliza para transformar coordenadas del espacio 3D de la cámara al espacio 2D de la pantalla. La matriz tiene en cuenta:
+- El campo de visión vertical (Field of View, FOV).
+- La relación de aspecto de la cámara.
+- Los planos de recorte cercano y lejano (Near y Far Clip Planes).
+
 ## Pregunta 9. ¿Cómo puedes averiguar la matriz de proyección en perspectiva ortográfica que se ha usado para proyectar la escena al último frame renderizado?
 ## Pregunta 10. ¿Cómo puedes obtener la matriz de transformación entre el sistema de coordenadas local y el mundial?
 ## Pregunta 11. ¿Cómo puedes obtener la matriz para cambiar al sistema de referencia de vista?
