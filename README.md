@@ -58,7 +58,9 @@ Para comprobar el efecto de recorte:
 2. Ajusta los parámetros del `Near Clip Plane` y `Far Clip Plane`, o modifica el `FOV` hasta lograr el recorte deseado.
 
 Este enfoque te permite crear el efecto de una esfera parcialmente visible en el frustum de la cámara, simulando el recorte de un volumen de vista.
-**[AÑADIR IMAGENES]**
+| Modificación del Field of View                   | Configuración del Clip Plane                   |
+|--------------------------------------------------|------------------------------------------------|
+| ![Modificación del Field of View](./image/field_of_view.png)          | ![Configuración del Clip Plane](./image/clipping Planes.png)          |
 ## Pregunta 4. Sitúa la esfera de radio 1 en el campo de visión de la cámara y configura el volumen de vista para que la deje fuera de la vista.
 ### Método 1: Ajustar los planos de recorte
 Si ya tienes la esfera ubicada en el campo de visión de la cámara, por ejemplo, en la posición `(0, 1, 5)`:
