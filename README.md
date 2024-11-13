@@ -170,7 +170,7 @@ Para verificar los cambios en Unity:
 
 | Movimiento del FOV                | Reducción del FOV                   |
 |--------------------------------------------------|------------------------------------------------|
-| ![Modificación del Field of View](./image/ej4_fov_moved.gif)          | ![Configuración del Clip Plane](./image/ej4_FOV_reduce.png)          |
+| ![Modificación del Field of View](./image/ej4_fov_moved.gif)          | <img src="./image/ej4_FOV_reduce.png" width="1000"/>       |
 ## Pregunta 5 <div id='5'/>
 
 **5\. Cómo puedes aumentar el ángulo de la cámara. Qué efecto tiene disminuir el ángulo de la cámara**
