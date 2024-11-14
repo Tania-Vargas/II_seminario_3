@@ -442,25 +442,13 @@ Para capturar la matriz de proyección en perspectiva utilizada por la cámara e
 ```c
 using UnityEngine;
 
-public class ProjectionMatrixLogger : MonoBehaviour
+public class MatrixProjection : MonoBehaviour
 {
-    void Start()
-    {
-        // Acceder a la cámara principal
-        Camera mainCamera = Camera.main;
-
-        // Verificar que la cámara está en modo de proyección perspectiva
-        if (!mainCamera.orthographic)
-        {
-            // Obtener y mostrar la matriz de proyección en perspectiva
-            Matrix4x4 projectionMatrix = mainCamera.projectionMatrix;
-            Debug.Log("Matriz de proyección en perspectiva:\n" + projectionMatrix);
-        }
-        else
-        {
-            Debug.LogWarning("La cámara está en modo ortográfico, no en perspectiva.");
-        }
-    }
+  public Camera mainCamera;
+  void Start() {
+    Matrix4x4 projectionMatrix = mainCamera.projectionMatrix;
+    Debug.Log("Matriz de proyección:\n" + projectionMatrix.ToString());
+  }
 }
 ```
 
@@ -499,30 +487,23 @@ Matrix4x4 modelMatrix = objectTransform.localToWorldMatrix;
 
 ### Ejemplo de código
 
-Dado que el ejercicio requiere un script que escriba en la consola la posición de cada objeto, también puedes utilizarlo para mostrar la matriz de modelo de cada objeto:
+Dado que el ejercicio requiere un script que escriba en la consola la matriz de modelo y vista de cada objeto:
 
 ```c
 using UnityEngine;
 
-public class ModelMatrixLogger : MonoBehaviour
-{
-    void Start()
-    {
-        // Obtener todos los objetos en la escena etiquetados para identificar su tipo
-        GameObject[] objects = GameObject.FindObjectsOfType<GameObject>();
+public class MatrixModelView : MonoBehaviour {
+  public Camera maincamera;
+  public Transform objeto; 
 
-        foreach (GameObject obj in objects)
-        {
-            Transform objTransform = obj.transform;
-
-            // Mostrar la posición del objeto
-            Debug.Log("Posición del objeto '" + obj.name + "': " + objTransform.position);
-
-            // Obtener y mostrar la matriz de modelo
-            Matrix4x4 modelMatrix = objTransform.localToWorldMatrix;
-            Debug.Log("Matriz de modelo para el objeto '" + obj.name + "':\n" + modelMatrix);
-        }
+  void Start() {
+    Matrix4x4 viewMatrix = maincamera.worldToCameraMatrix;
+    Debug.Log("Matriz de vista:\n" + viewMatrix.ToString());
+    if (objeto != null) {
+      Matrix4x4 modelMatrix = objeto.localToWorldMatrix;
+      Debug.Log("Matriz de modelo:\n" + modelMatrix.ToString());
     }
+  }
 }
 ```
 
@@ -543,17 +524,18 @@ Para ver la matriz de vista en la consola, puedes utilizar el siguiente código:
 ```c
 using UnityEngine;
 
-public class ViewMatrixLogger : MonoBehaviour
-{
-    void Start()
-    {
-        // Acceder a la cámara principal
-        Camera mainCamera = Camera.main;
+public class MatrixModelView : MonoBehaviour {
+  public Camera maincamera;
+  public Transform objeto; 
 
-        // Obtener y mostrar la matriz de vista
-        Matrix4x4 viewMatrix = mainCamera.worldToCameraMatrix;
-        Debug.Log("Matriz de vista (world to camera) de la cámara principal:\n" + viewMatrix);
+  void Start() {
+    Matrix4x4 viewMatrix = maincamera.worldToCameraMatrix;
+    Debug.Log("Matriz de vista:\n" + viewMatrix.ToString());
+    if (objeto != null) {
+      Matrix4x4 modelMatrix = objeto.localToWorldMatrix;
+      Debug.Log("Matriz de modelo:\n" + modelMatrix.ToString());
     }
+  }
 }
 ```
 
@@ -570,21 +552,18 @@ Para aplicar una rotación en el método `Start` de uno de los objetos de la esc
 ### 1\. Código para aplicar la rotación
 
 ```c
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class ApplyRotationAndLogMatrix : MonoBehaviour
-{
-    void Start()
-    {
-        // Aplicar una rotación de 45 grados alrededor del eje Y
-        transform.Rotate(0f, 45f, 0f, Space.Self);
-
-        // Obtener la matriz de transformación local a mundial después de la rotación
-        Matrix4x4 localToWorldMatrix = transform.localToWorldMatrix;
-
-        // Mostrar la matriz en la consola
-        Debug.Log("Matriz de transformación de local a mundial después de rotación:\n" + localToWorldMatrix);
-    }
+public class RotateAndShowMatrix : MonoBehaviour {
+  public Transform objeto;
+  public Vector3 rotation;
+  void Start() {
+    objeto.transform.Rotate(rotation);
+    Matrix4x4 modelMatrix = objeto.transform.localToWorldMatrix;
+    Debug.Log("Matriz de transformación al sistema de referencia mundial después de la rotación:\n" + modelMatrix.ToString());
+  }
 }
 ```
 
