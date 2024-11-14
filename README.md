@@ -569,7 +569,7 @@ public class RotateAndShowMatrix : MonoBehaviour {
 
 ### Explicación del código
 
-- `transform.Rotate(0f, 45f, 0f, Space.Self);` aplica una rotación en el eje Y del objeto, usando su propio sistema de referencia (local).  
+- `transform.Rotate(rotation);` aplica una rotación en los ejes del objeto, usando su propio sistema de referencia (local).  
 - `transform.localToWorldMatrix` proporciona la matriz de transformación que convierte las coordenadas locales del objeto en coordenadas mundiales.  
 - La matriz se muestra en la consola, y verás que los elementos de rotación han sido modificados para reflejar la rotación aplicada.
 
