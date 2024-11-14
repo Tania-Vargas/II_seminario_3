@@ -480,7 +480,8 @@ mainCamera.projectionMatrix = Matrix4x4.Perspective(mainCamera.fieldOfView, main
 
 ### Funcionalidad del script
 
-Al colocar este script en un objeto de la escena, `ProjectionMatrixLogger` mostrará en la consola la matriz de proyección en el instante en que se ejecute el método `Start`. Esto se ajusta a los requisitos de monitoreo en tiempo de ejecución, ya que proporciona un registro de la matriz que se está usando en el momento inicial de la ejecución, correspondiente al instante de la creación de la escena y la configuración de los objetos.
+Al colocar este script en un objeto de la escena, `ProjectionMatrixLogger` mostrará en la consola la matriz de proyección en el instante en que se ejecute el método `Start`. Esto se ajusta a los requisitos de monitoreo en tiempo de ejecución, ya que proporciona un registro de la matriz que se está usando en el momento inicial de la ejecución, correspondiente al instante de la creación de la escena y la configuración de los objetos.  
+![Matriz de cambio](./image/ej_12.PNG)
 
 ## Pregunta 13 <div id='13'/>
 
@@ -556,6 +557,10 @@ public class ViewMatrixLogger : MonoBehaviour
 }
 ```
 
+| Matriz de modelo               | Matriz de vista               |
+|--------------------------------------------------|------------------------------------------------|
+| ![Matriz de modelo](./image/ej_13_2.PNG)          | ![Matriz de vista](./image/ej_13_1.PNG)          |
+
 ## Pregunta 14 <div id='14'/>
 
 **14\. Aplica una rotación en el start de uno de los objetos de la escena y muestra la matriz de cambio al sistema de referencias mundial**
@@ -588,6 +593,8 @@ public class ApplyRotationAndLogMatrix : MonoBehaviour
 - `transform.Rotate(0f, 45f, 0f, Space.Self);` aplica una rotación en el eje Y del objeto, usando su propio sistema de referencia (local).  
 - `transform.localToWorldMatrix` proporciona la matriz de transformación que convierte las coordenadas locales del objeto en coordenadas mundiales.  
 - La matriz se muestra en la consola, y verás que los elementos de rotación han sido modificados para reflejar la rotación aplicada.
+
+![Matriz de cambio al sistema de referencias mundial](./image/ej_14.PNG)
 
 ## Pregunta 15 <div id='15'/>
 
